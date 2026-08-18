@@ -74,7 +74,8 @@ public class ExchangeRequestsController : ControllerBase
         var listingBook = request.Listing!.Book!;
         var offeredBook = request.OfferedBook!;
 
-        await using var transaction = await _db.Database.BeginTransactionAsync();
+        var useTransaction = _db.Database.IsRelational();
+        var transaction = useTransaction ? await _db.Database.BeginTransactionAsync() : null;
         try
         {
             var ownerId = listingBook.OwnerId;
@@ -106,12 +107,16 @@ public class ExchangeRequestsController : ControllerBase
             _db.Notifications.Add(new Notification { UserId = ownerId, IsRead = false });
 
             await _db.SaveChangesAsync();
-            await transaction.CommitAsync();
+            if (transaction != null) await transaction.CommitAsync();
         }
         catch
         {
-            await transaction.RollbackAsync();
+            if (transaction != null) await transaction.RollbackAsync();
             throw;
+        }
+        finally
+        {
+            if (transaction != null) await transaction.DisposeAsync();
         }
 
         return NoContent();
