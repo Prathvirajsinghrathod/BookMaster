@@ -18,6 +18,20 @@ BookMaster is a digital book ownership and peer-to-peer exchange platform. It al
 
 BookMaster should provide secure access control, maintain accurate ownership data, prevent conflicting exchanges, and ensure that exchange operations complete consistently. The application should also use a modular and maintainable architecture.
 
+## Tech Stack
+.NET 8 solution:
+- Api (ASP.NET Core Web API + EF Core + MySQL)
+- Mvc (ASP.NET Core MVC, consumes Api)
+- Tests (xUnit).
+
+## Setup
+1. Create MySQL db, run `Api/schema.sql`.
+2. Set connection string in `Api/appsettings.json`.
+3. `cd Api && dotnet run`
+4. Set `ApiBaseUrl` in `Mvc/appsettings.json` to match Api url.
+5. `cd Mvc && dotnet run`
+6. `cd Tests && dotnet test`
+
 ## Main Roles
 
 - **User:** Manages books, participates in exchanges, and views exchange history.
@@ -40,6 +54,8 @@ The current database implementation uses **MySQL**. The database design is docum
 ![BookMaster Database Design](BM_DB_Design.jpeg)
 
 The database layer is currently designed for MySQL, with **Microsoft SQL Server** planned as the target database for a future migration.
+
+For a SQL implementation, see [mysql_db.sql](./mysql_db.sql)
 
 ## Developers
 
