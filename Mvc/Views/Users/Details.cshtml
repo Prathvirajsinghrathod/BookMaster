@@ -1,0 +1,21 @@
+@model UserVm
+<h1>@Model.Name</h1>
+<p>@Model.Email</p>
+
+<h2>Library</h2>
+<table>
+    <tr><th>Id</th><th>Title</th><th>Status</th></tr>
+    @foreach (var b in (List<BookVm>)ViewBag.Library)
+    {
+        <tr><td>@b.Id</td><td>@b.Title</td><td>@b.Status</td></tr>
+    }
+</table>
+
+<h2>Exchange History</h2>
+<table>
+    <tr><th>Id</th><th>Request Id</th><th>Completed At</th></tr>
+    @foreach (var h in (List<HistoryVm>)ViewBag.History)
+    {
+        <tr><td>@h.Id</td><td>@h.RequestId</td><td>@h.CompletedAt</td></tr>
+    }
+</table>

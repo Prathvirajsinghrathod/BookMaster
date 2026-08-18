@@ -1,0 +1,33 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BookMaster.Api.Models;
+
+public static class BookStatus
+{
+    public const string Owned = "OWNED";
+    public const string Listed = "LISTED";
+    public const string Exchanged = "EXCHANGED";
+}
+
+public class Book
+{
+    public long Id { get; set; }
+
+    [Required, MaxLength(255)]
+    public string Title { get; set; } = string.Empty;
+
+    [Column("owner_id")]
+    public long OwnerId { get; set; }
+    public User? Owner { get; set; }
+
+    [Column("category_id")]
+    public long CategoryId { get; set; }
+    public Category? Category { get; set; }
+
+    [Required, MaxLength(50)]
+    public string Status { get; set; } = BookStatus.Owned;
+
+    public ExchangeListing? ExchangeListing { get; set; }
+    public ICollection<ExchangeRequest> OfferedInRequests { get; set; } = new List<ExchangeRequest>();
+}

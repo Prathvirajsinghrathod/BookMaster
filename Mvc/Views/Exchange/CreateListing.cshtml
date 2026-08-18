@@ -1,0 +1,15 @@
+@model CreateExchangeListingVm
+<h1>New Exchange Listing</h1>
+<div asp-validation-summary="All" class="error"></div>
+<form method="post">
+    <label>Book</label>
+    <select asp-for="BookId">
+        @foreach (var b in (List<BookVm>)ViewBag.Books)
+        {
+            <option value="@b.Id">@b.Title</option>
+        }
+    </select><br />
+    <label>Wanted Type</label>
+    <input asp-for="WantedType" /><br />
+    <button type="submit">Create</button>
+</form>
