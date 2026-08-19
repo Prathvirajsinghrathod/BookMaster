@@ -1,0 +1,10 @@
+@model List<ExchangeListingVm>
+<h1>Exchange Listings</h1>
+<a href="/Exchange/CreateListing">New Listing</a>
+<table>
+    <tr><th>Id</th><th>Book Id</th><th>Wanted Type</th></tr>
+    @foreach (var l in Model)
+    {
+        <tr><td>@l.Id</td><td>@l.BookId</td><td>@l.WantedType</td></tr>
+    }
+</table>

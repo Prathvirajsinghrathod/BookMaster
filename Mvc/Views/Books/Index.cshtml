@@ -1,0 +1,33 @@
+@model List<BookVm>
+<h1>Books</h1>
+<a href="/Books/Create">New Book</a>
+<form method="get">
+    <input type="text" name="search" placeholder="Search title" />
+    <select name="categoryId">
+        <option value="">All categories</option>
+        @foreach (var c in (List<CategoryVm>)ViewBag.Categories)
+        {
+            <option value="@c.Id">@c.Name</option>
+        }
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<table>
+    <tr><th>Id</th><th>Title</th><th>Owner Id</th><th>Category Id</th><th>Status</th><th></th></tr>
+    @foreach (var b in Model)
+    {
+        <tr>
+            <td>@b.Id</td>
+            <td>@b.Title</td>
+            <td>@b.OwnerId</td>
+            <td>@b.CategoryId</td>
+            <td>@b.Status</td>
+            <td>
+                <a href="/Books/Details/@b.Id">View</a>
+                <form method="post" action="/Books/Delete/@b.Id" style="display:inline">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
